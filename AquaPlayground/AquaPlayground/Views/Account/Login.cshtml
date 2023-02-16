@@ -1,0 +1,31 @@
+﻿@model AquaPlayground.ViewModels.LoginViewModel
+
+<center>
+    <h2>Log in</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="col-md-12 alert alert-danger">
+            <span><b>Sorry!</b> - @TempData["Error"] </span>
+        </div>
+    }
+
+    <form method="post" asp-controller="Account" asp-action="Login">
+        <div asp-validation-summary="ModelOnly"></div>
+        <div>
+            <label asp-for="Name"></label><br />
+            <input asp-for="Name" /><br>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="Password"></label><br />
+            <input asp-for="Password" /><br>
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="submit" value="Log in" />
+        </div>
+    </form>
+
+    <a class="nav-link text-blue" asp-area="" asp-controller="Account" asp-action="ForgotPassword">Forgot password</a>
+</center>

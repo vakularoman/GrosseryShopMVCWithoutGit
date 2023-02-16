@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32929.385
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquaPlayground", "AquaPlayground\AquaPlayground.csproj", "{76912FAD-4AAE-4204-A805-810E8124AABD}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AquaPlayground.UnitTests", "AquaPlayground.UnitTests\AquaPlayground.UnitTests.csproj", "{9462BC1B-467F-4A9F-A41F-80AFE80C272D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76912FAD-4AAE-4204-A805-810E8124AABD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76912FAD-4AAE-4204-A805-810E8124AABD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76912FAD-4AAE-4204-A805-810E8124AABD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76912FAD-4AAE-4204-A805-810E8124AABD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9462BC1B-467F-4A9F-A41F-80AFE80C272D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9462BC1B-467F-4A9F-A41F-80AFE80C272D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9462BC1B-467F-4A9F-A41F-80AFE80C272D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9462BC1B-467F-4A9F-A41F-80AFE80C272D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F0E96E9-EACF-4F04-8C93-1DCA49129149}
+	EndGlobalSection
+EndGlobal

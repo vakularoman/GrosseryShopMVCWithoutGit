@@ -1,0 +1,117 @@
+﻿@model Product
+
+@{
+    ViewData["Title"] = Model.Name;
+}
+
+<div class="row">
+    <div class="col-md-9 offset-2">
+        <div class="card">
+            <div class="row g-0">
+                <div class="col-md-0">
+                    <div class="card-header text-white bg-info">
+                        <p class="card-text">
+                            <center>
+                                <h5 class="card-title">
+                                    @Model.Name
+                                </h5>
+                            </center>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <img src="@Model.ImagePath" width="100%" alt="@Model.Name">
+                </div>
+                <div class="col-md-4">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>Description: </b>
+                            @Model.Description
+                        </p>
+                        <p class="card-text">
+                            <b>Category: </b>
+                                <a class="btn btn-outline-primary float-right" asp-action="SearchByCategory" asp-route-id="@Model.ProductType.ProductCategory.ProductCategoryId">
+                                    <i class="bi bi-eye-fill"></i> @Model.ProductType.ProductCategory.Name
+                                </a>  
+                        </p>
+                        <p class="card-text">
+                            <b>Type: </b>
+                            <a class="btn btn-outline-primary float-right" asp-action="SearchByType" asp-route-id="@Model.ProductType.ProductTypeId">
+                                <i class="bi bi-eye-fill"></i> @Model.ProductType.Name
+                            </a>
+                        </p>
+                        <p class="card-text">
+                            @if (Model.ProductTags.Count != 0)
+                            {
+                                <b>Tags: </b>
+                                @foreach (var tag in Model.ProductTags)
+                                {
+                                    <a class="btn btn-outline-primary float-right" asp-action="SearchByTag" asp-route-id="@tag.TagId">
+                                        <i class="bi bi-eye-fill"></i> @tag.Tag.Name
+                                    </a>
+                                }
+                            }
+                        </p>
+                        <p class="card-text">
+                            <b>Price: </b>
+                            @Model.Price
+                            $
+                        </p>
+                        <p class="card-text">
+                            <b>Left in stock: </b>
+                            @Model.Count
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>Nutritions</b>
+                        </p>
+                        <p class="card-text">
+                            Fat:
+                            @Model.Nutrition.Fat
+                        </p>
+                        <p class="card-text">
+                            Calories:
+                            @Model.Nutrition.Calories
+                        </p>
+                        <p class="card-text">
+                            Protein:
+                            @Model.Nutrition.Protein
+                        </p>
+                        <p class="card-text">
+                            Carb:
+                            @Model.Nutrition.Carb
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <div class="card-body">
+                        <p class="card-text">
+                            <b>Manufacturer</b>
+                        </p>
+                        <p class="card-text">
+                            Name:
+                            @Model.Manufacturer.Name
+                        </p>
+                        <p class="card-text">
+                            Location:
+                            @Model.Manufacturer.Adress
+                        </p>
+                    </div>
+                </div>
+                @if (User.Identity.IsAuthenticated && User.IsInRole(AppRoles.User))
+                {
+                    <center>
+                        <form method="post" asp-controller="CartProduct" asp-action="AddProduct">
+                            <input type="number" name="count" value="1" />
+                            <input type="hidden" name="productId" value="@Model.ProductId">
+                            <input type="submit" value="Buy" class="btn btn-primary">
+                        </form>
+                    </center>
+                }
+            </div>
+        </div>
+    </div>
+</div>

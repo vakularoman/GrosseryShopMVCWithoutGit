@@ -1,0 +1,45 @@
+﻿@model PagingListViewModel<UserGetViewModel>
+
+@if (TempData["Error"] != null)
+{
+    <div class="col-md-12 alert alert-danger">
+        <span><b>Sorry!</b> - @TempData["Error"] </span>
+    </div>
+}
+
+<form method="get" asp-controller="User" asp-action="Search">
+    <input type="search" placeholder="Enter user email" name="substring">
+    <input type="submit" value="Search" class="btn btn-primary">
+</form>
+
+<center>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>
+                User name
+            </th>
+
+            <th>
+                User email
+            </th>
+            <th>
+                Manage roles
+            </th>
+
+        </tr>
+        @foreach (var user in Model.Elements)
+        {
+            <tr>
+                <td>
+                    @user.Name
+                </td>
+                <td>
+                    @user.Email
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-primary" asp-action="Edit" asp-route-userid="@user.UserId">Change roles</a>
+                </td>
+            </tr>
+        }
+    </table>
+</center>

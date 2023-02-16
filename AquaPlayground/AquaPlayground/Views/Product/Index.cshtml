@@ -1,0 +1,125 @@
+﻿@model PagingListViewModel<ProductGetViewModel>
+
+@{
+    ViewData["Title"] = "List of Products";
+}
+
+<div class="row">
+    @foreach (var item in Model.Elements)
+    {
+        <div class="col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <div class="col-md-12">
+                        <div class="card-header text-white bg-info">
+                            <p class="card-text">
+                                <h5 class="card-title">
+                                    @item.Name
+                                </h5>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <img src="@item.ImagePath" width="200" height="200" alt="@item.Name">
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card-body">
+                            <p class="card-text"><b>@item.Price $</b></p>
+                            <p class="card-text">@item.Description</p>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="card-footer ">
+                            <p class="card-text">
+                                <a class="btn btn-outline-primary float-right" asp-action="Details" asp-route-id="@item.ProductId">
+                                    <i class="bi bi-eye-fill"></i> Show Details
+                                </a>    
+                                @if(User.Identity.IsAuthenticated && User.IsInRole(AppRoles.User))
+                                {
+                                    @if (item.IsFavourite)
+                                    {
+                                        <button id="@item.ProductId" type="button" style="color:red" onclick="Fav(@item.ProductId)">
+                                            Favorite
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        <button id="@item.ProductId" type="button" style="color:grey" onclick="Fav(@item.ProductId)">
+                                            Favorite
+                                        </button>
+                                    }
+
+                                    <form method="post" asp-controller="CartProduct" asp-action="AddProduct">
+                                        <input type="number" name="count" value="1"/>
+                                        <input type="hidden" name="productId" value="@item.ProductId">
+                                        <input type="submit" value="Buy" class="btn btn-primary">
+                                    </form>
+
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    @{
+        var nextPage = Model.CurrentPageNumber + 1;
+        var prevPage = Model.CurrentPageNumber - 1;
+    }
+
+    @if(nextPage <= Model.TotalPagesCount)
+    {
+        <a class="btn btn-outline-primary float-right" asp-action=@ViewContext.RouteData.Values["Action"].ToString() asp-route-page=@nextPage>
+            <i class="bi bi-eye-fill"></i> Next
+        </a>
+    }
+    @if(prevPage > 0)
+    {
+        <a class="btn btn-outline-primary float-right" asp-action=@ViewContext.RouteData.Values["Action"].ToString() asp-route-page=@prevPage>
+            <i class="bi bi-eye-fill"></i> Prev
+        </a>
+    }
+</div>
+
+<script type="text/javascript">
+
+    function Fav(id) {
+        const btn = document.getElementById(id);
+
+        console.log(btn.style.color);
+
+        if (btn.style.color != 'red') {
+            var url = '@Url.Action("FollowProduct", "Product")';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    btn.style.color = 'red';
+                },
+            });
+        }
+        else
+        {
+            var url = '@Url.Action("UnfollowProduct", "Product")';
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: {
+                    id: id
+                },
+                success: function (data) {
+                    const btn = document.getElementById(id);
+                    btn.style.color = 'grey';
+                },
+            });
+        }
+    };
+
+</script>
